@@ -6,12 +6,14 @@
 
 body{
   height: 100vh;
-  background: #74ebd5; /* fallback color for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #acb6e5,
-    #74ebd5
-  ); /* Chrome 10-25, Safari 5.1 -6 */
+  /*css background color palette*/
+  /*https://coolors.co/gradient-palette/2b0948-ce653b?number=7*/
+  background: hsla(272, 78%, 16%, 1);
+  background: linear-gradient(90deg, hsla(272, 78%, 16%, 1) 0%, hsla(17, 60%, 52%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(272, 78%, 16%, 1) 0%, hsla(17, 60%, 52%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(272, 78%, 16%, 1) 0%, hsla(17, 60%, 52%, 1) 100%);
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#2b0948", endColorstr="#ce653b", GradientType=1 ); /* Chrome 10-25, Safari 5.1 -6 */
   display: flex;
   justify-content: center;
   align-items: center;
