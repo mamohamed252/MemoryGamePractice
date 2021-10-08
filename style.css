@@ -63,3 +63,7 @@ section{
 .toggleCard{
   transform: rotateY(180deg);
 }
+/*reverses image to flip correctly*/
+.face{
+  transform: rotateY(-180deg);
+}
