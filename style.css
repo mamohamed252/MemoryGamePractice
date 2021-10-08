@@ -41,6 +41,8 @@ section{
   width: 100%;
   height: 100%;
   position: absolute;
+  /*pointer-events of none allows to grab card instead of element*/
+  pointer-events: none;
 }
 .back{
 
