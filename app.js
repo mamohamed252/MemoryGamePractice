@@ -1,7 +1,7 @@
 // Grab a couple of things
 const section = document.querySelector("section");
 const playerLivesCount = document.querySelector("span");
-const playerLives = 6;
+let playerLives = 7;
 
 // Link text
 playerLivesCount.textContent = playerLives;
@@ -72,7 +72,7 @@ const checkCards = (e) => {
   // Card flip logic
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
-
+  const toggleCard = document.querySelectorAll(".toggleCard");
   console.log(flippedCards);
   if (flippedCards.length === 2) {
     if (
@@ -91,8 +91,48 @@ const checkCards = (e) => {
         //setting bufferzone from instant logic reversed flip when wrong
         setTimeout(() => card.classList.remove("toggleCard"), 1000);
       });
+      playerLives--;
+      playerLivesCount.textContent = playerLives;
+      // players lives stops at 0 to avoid negative numbers
+      if (playerLives === 0) {
+        restart("Try agin");
+      }
     }
   }
+  // Run check to see if you won
+  if(toggleCard.length === 16){
+    restart("you won");
+  }
+};
+
+// Restart counter
+const restart = (text) => {
+
+  let cardData = randomize();
+  let faces = document.querySelectorAll(".face");
+  let cards = document.querySelectorAll(".card");
+  section.style.pointerEvents = "none";
+
+  cardData.forEach((item, index) => {
+    cards[index].classList.remove("toggleCard");
+
+    // Randomize cards and update when lost
+    cards[index].style.pointerEvents = "all";
+    //Updating here
+    //SetTimeout here allows cards to reload at settime before
+    // Allowing user to play new game.
+    setTimeout(() =>{
+      faces[index].src = item.imgSrc;
+      cards[index].setAttribute("name", item.name);
+      section.style.pointerEvents = "all";
+    }, 1000);
+  });
+  // if we lose game loop over each card and remove 
+  //classlist togglecard which will reflip cards
+  // back to player live counter default
+  playerLives = 7;
+  playerLivesCount.textContent = playerLives;
+  setTimeout(() => window.alert(text), 100);
 };
 
 cardGenerator();
