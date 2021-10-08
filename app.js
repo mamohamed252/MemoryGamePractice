@@ -28,40 +28,71 @@ const getData = () => [
 
 // Randomize cards
 const randomize = () => {
-//Grabs cards from data function with stored array of cards.
+  //Grabs cards from data function with stored array of cards.
   const cardData = getData();
-//Sort function retrieves array and with Math.random(), it shuffles array.
+  //Sort function retrieves array and with Math.random(), it shuffles array.
   cardData.sort(() => Math.random() - 0.5);
   return cardData;
 };
 
 // Card Generator Function
-const cardGenerator = () =>{
+const cardGenerator = () => {
   const cardData = randomize();
 
   // Generate 16 card html
   cardData.forEach((item) => {
-  const card = document.createElement("div");
-  const face = document.createElement('img');
-  const back = document.createElement("div");
-  
-  card.classList = "card";
-  face.classList = "face";
-  back.classList = "back";
+    const card = document.createElement("div");
+    const face = document.createElement('img');
+    const back = document.createElement("div");
 
-  // Attach information to card
-  face.src = item.imgSrc;
+    card.classList = "card";
+    face.classList = "face";
+    back.classList = "back";
 
-  // Attach cards to the sections
-  section.appendChild(card);
-  card.appendChild(face);
-  card.appendChild(back);
+    // Attach information to card
+    face.src = item.imgSrc;
+    card.setAttribute("name", item.name);
+    // Attach cards to the sections
+    section.appendChild(card);
+    card.appendChild(face);
+    card.appendChild(back);
 
-  /* Add event listener */
-  card.addEventListener("click", (e) => {
-    card.classList.toggle("toggleCard");
-  })
+    /* Add event listener */
+    card.addEventListener("click", (e) => {
+      card.classList.toggle("toggleCard");
+      checkCards(e);
+    })
   });
+};
+
+// Check if cards match
+const checkCards = (e) => {
+  console.log(e);
+  const clickedCard = e.target;
+  // Card flip logic
+  clickedCard.classList.add("flipped");
+  const flippedCards = document.querySelectorAll('.flipped');
+  
+  console.log(flippedCards);
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      console.log("match");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        card.style.pointerEvents = "none";
+      });
+    }
+  } else {
+      console.log("wrong");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        //setting bufferzone from instant logic reversed flip when wrong
+        setTimeout(() => card.classList.remove("toggleCard"), 1000);
+      });
+    }
 };
 
 cardGenerator();
