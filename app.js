@@ -42,7 +42,7 @@ const cardGenerator = () => {
   // Generate 16 card html
   cardData.forEach((item) => {
     const card = document.createElement("div");
-    const face = document.createElement('img');
+    const face = document.createElement("img");
     const back = document.createElement("div");
 
     card.classList = "card";
@@ -71,8 +71,8 @@ const checkCards = (e) => {
   const clickedCard = e.target;
   // Card flip logic
   clickedCard.classList.add("flipped");
-  const flippedCards = document.querySelectorAll('.flipped');
-  
+  const flippedCards = document.querySelectorAll(".flipped");
+
   console.log(flippedCards);
   if (flippedCards.length === 2) {
     if (
@@ -84,8 +84,7 @@ const checkCards = (e) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "none";
       });
-    }
-  } else {
+    } else {
       console.log("wrong");
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
@@ -93,6 +92,7 @@ const checkCards = (e) => {
         setTimeout(() => card.classList.remove("toggleCard"), 1000);
       });
     }
+  }
 };
 
 cardGenerator();
